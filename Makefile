@@ -1,42 +1,25 @@
-NAME	   := philosphers
-# NAME_BONUS := pipex_bonus
-SRC        := utils.c
-# SRC_BONUS  := utils_bonus.c pipex_bonus.c utils.c
-LIBFT      := ./libft
-OBJ        := $(SRC:.c=.o)
-# OBJ_BONUS  := $(SRC_BONUS:.c=.o)
-CC         := gcc
-CFLAGS     := -Wall -Werror -Wextra
-LDFLAGS    := -L$(LIBFT) -lft
-HEADERS    := -Iinclude
+NAME		=	philo
 
-all: $(NAME)
+HEADER		=	./include/
 
-# bonus: $(NAME_BONUS)
+CC			=	gcc
 
-$(NAME): build_libft $(OBJ)
-	@$(CC) $(OBJ) $(CFLAGS) $(LDFLAGS) $(HEADERS) -o $(NAME)
+CFLAGS		=	-Werror -Wall -Wextra -g -I $(HEADER) -pthread
 
-# $(NAME_BONUS): build_libft $(OBJ_BONUS)
-# 	@$(CC) $(OBJ_BONUS) $(CFLAGS) $(LDFLAGS) $(HEADERS) -o $(NAME_BONUS)
+SRCS		=	SRC/parsing.c SRC/utils.c SRC/init_data.c \
 
 
-$(LIBFT):
-	@make -C $(LIBFT)
+OBJS		=	$(SRCS:.c=.o)
 
-build_libft:
-	@make -C $(LIBFT)
+all			:	$(NAME)
 
-clean:
-	@make -C $(LIBFT) clean
-	@rm -rf $(OBJ) $(OBJ_BONUS)
+$(NAME)		:	$(OBJS) $(HEADER)
+				$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-fclean: clean
-	@make -C $(LIBFT) fclean
-	@rm -f $(NAME) $(NAME)_bonus
+clean		:
+				rm -rf $(OBJS)
 
-re: fclean all
+fclean		:	clean
+				rm -rf $(NAME)
 
-# re_bonus:	fclean bonus
-
-.PHONY: all clean fclean re bonus
+re			:	fclean all
