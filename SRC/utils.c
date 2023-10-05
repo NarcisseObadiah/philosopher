@@ -6,7 +6,7 @@
 /*   By: narcisse <narcisse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 06:32:07 by narcisse          #+#    #+#             */
-/*   Updated: 2023/10/04 00:40:50 by narcisse         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:20:21 by narcisse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,17 @@ void ft_usleep(long int time_in_ms)
     {
         usleep(time_in_ms / 10);
     }
+}
+
+
+int  ft_check_death(t_ph *philo, int i)
+{
+    int is_stopped;
+    pthread_mutex_lock(&philo->pdata->mutex_dead);
+
+    if (i > 0)
+        philo->pdata->stop = i;
+    is_stopped = philo->pdata->stop;
+    pthread_mutex_unlock(&philo->pdata->mutex_dead);
+    return (is_stopped);
 }

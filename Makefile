@@ -6,7 +6,7 @@ CC			=	gcc
 
 CFLAGS		=	-Werror -Wall -Wextra -g -I $(HEADER) -pthread
 
-SRCS		=	SRC/parsing.c SRC/utils.c SRC/init_data.c \
+SRCS		=	SRC/parsing.c SRC/utils.c SRC/init_data.c  SRC/routine.c  \
 
 
 OBJS		=	$(SRCS:.c=.o)

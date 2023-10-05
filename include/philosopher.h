@@ -1,5 +1,6 @@
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
+# define MAX_LONG 2147483647
 
 
 #include <stdlib.h>
@@ -36,7 +37,8 @@ typedef struct s_ph
     pthread_t   thread_death_id; //id of the thread monitoring death.
     pthread_mutex_t   *right_fork;
     pthread_mutex_t   left_fork;
-    long int last_eat_time;
+    t_data            *pdata;   //pointer to struct with all arguments
+    long int last_eat_time; 
     int    num_eat; //number of eating, each time the philo eat, num_eat++
     int     end;   // 1 when a philosopher ate times_must_eat, if not 0.
 }           t_ph;
@@ -50,5 +52,13 @@ typedef struct s_philo
 
 int     init_data(t_philo  *ph);
 long int time_now(void);
+void ft_usleep(long int time_in_ms);
+int  ft_check_death(t_ph *philo, int i);
+int ft_parsing(int argc, char **argv, t_philo *ph);
+void write_status(char *str, t_ph *philo);
+void ft_routine(t_ph    *philo);
 
 #endif
+
+
+

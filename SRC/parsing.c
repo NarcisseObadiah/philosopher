@@ -6,7 +6,7 @@
 /*   By: narcisse <narcisse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 02:30:07 by narcisse          #+#    #+#             */
-/*   Updated: 2023/10/04 00:41:51 by narcisse         ###   ########.fr       */
+/*   Updated: 2023/10/05 10:28:42 by narcisse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	is_digit(char **argv, int k, int j)
 	}
 	return (1);
 }
-int parsing(int argc, char **argv, t_philo *ph)
+int ft_parsing(int argc, char **argv, t_philo *ph)
 {
     if ((argc == 5 || argc == 6) && is_digit(argv, 0, 1))
     {
