@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: narcisse <narcisse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 06:32:07 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/07 15:35:54 by mobadiah         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:37:36 by narcisse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosopher.h"
 
-void	ft_error(char *str)
+int	ft_error(char *str)
 {
-	write(1, &str, ft_strlen(str));
-	write(1, "\n", 1);
-	exit(1);
+	ft_putstr_fd("Error : ", 2);
+	ft_putstr_fd(str, 2);
+	return (0);
 }
 
 int	ft_strlen(const char *s)

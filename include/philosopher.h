@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: narcisse <narcisse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:00:13 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/07 20:06:59 by mobadiah         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:40:46 by narcisse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_ph
 	pthread_mutex_t	left_fork;
 	t_data			*pdata; //pointer to struct with all arguments
 	long int		last_eat_time; 
-	int				num_eat; //number of diner, each time a philo eat, num_eat++
+	unsigned int	num_eat; //number of diner, each time a philo eat, num_eat++
 	int				end;   // 1 when a philosopher ate times_must_eat, if not 0.
 }					t_ph;
 
@@ -67,6 +67,10 @@ int			ft_parsing(int argc, char **argv, t_philo *ph);
 void		write_status(char *str, t_ph *philo);
 void		ft_routine(t_ph	*philo);
 int			ft_strlen(const char *s);
+int			ft_error(char *str);
+void		ft_putstr_fd(char *s, int fd);
+void		ft_putnbr_fd(long int ln, int fd);
+int			threading(t_philo *ph);
 
 /*Alternative threads functions*/
 
