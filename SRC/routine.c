@@ -6,7 +6,7 @@
 /*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:34:43 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/06 15:01:02 by mobadiah         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:17:37 by mobadiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	write_status(char *str, t_ph *philo)
 void	ft_sleep(t_ph *philo)
 {
 	pthread_mutex_lock(&philo->pdata->mutex_write);
-	write_status("is sleeping", philo);
+	write_status("is sleeping\n", philo);
 	pthread_mutex_unlock(&philo->pdata->mutex_write);
 }
 
 void	ft_think(t_ph *philo)
 {
 	pthread_mutex_lock(&philo->pdata->mutex_write);
-	write_status("is thinking", philo);
+	write_status("is thinking\n", philo);
 	pthread_mutex_unlock(&philo->pdata->mutex_write);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narcisse <narcisse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:00:31 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/09 10:56:47 by narcisse         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:34:39 by mobadiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,44 +64,99 @@ void	*ft_is_dead(void *data)
  
 // */
 
+// void	*ft_thread(void *data)
+// {
+// 	t_ph	*philo;
+
+// 	philo = (t_ph *)(data);
+// 	if ((philo->id % 2) == 0)
+// 		ft_usleep(philo->pdata->time_to_eat / 10);
+// 	while (!ft_check_death(philo, 0))
+// 	{
+// 		pthread_create(&philo->thread_death_id, NULL, ft_is_dead, data);
+// 		ft_routine(philo);
+// 		pthread_detach(philo->thread_death_id);
+// 		if ((int)++philo->num_eat == philo->pdata->times_must_eat)
+// 		{
+// 			pthread_mutex_lock(&philo->pdata->mutex_end);
+// 			philo->end = 1;
+// 			philo->pdata->num_phil_finished++;
+// 			if (philo->pdata->num_phil_finished == philo->pdata->nb_of_philos)
+// 			{
+// 				pthread_mutex_unlock(&philo->pdata->mutex_end);
+// 				ft_check_death(philo, 2);
+// 			}
+// 			pthread_mutex_unlock(&philo->pdata->mutex_dead);
+// 		}
+// 	}
+// 	return (NULL);
+// }
+
+/*
+	// Lock the end mutex to safely update shared variables
+	// Check if all philosophers have finished, and if so, trigger the end condition
+	// Unlock the death mutex
+*/
+
+void	mark_philosopher_as_finished(t_ph *philo)
+{
+	pthread_mutex_lock(&philo->pdata->mutex_end);
+	philo->end = 1;
+	philo->pdata->num_phil_finished++;
+	if (philo->pdata->num_phil_finished == philo->pdata->nb_of_philos)
+	{
+		pthread_mutex_unlock(&philo->pdata->mutex_end);
+		ft_check_death(philo, 2);
+	}
+	pthread_mutex_unlock(&philo->pdata->mutex_dead);
+}
+
+/*
+	// Check if philosopher ID is even and sleep if true
+	// Continuously check if the philosopher is alive
+	// Start a thread to check for philosopher's death
+	// Perform the routine for the philosopher
+	// Detach the death-checking thread
+	// Check if the philosopher has reached the required number of meals
+	// Mark the philosopher as finished and handle the end condition
+	
+*/
+
 void	*ft_thread(void *data)
 {
 	t_ph	*philo;
 
 	philo = (t_ph *)(data);
-	if ((philo->id % 2) == 0)
+	if (philo->id % 2 == 0)
 		ft_usleep(philo->pdata->time_to_eat / 10);
 	while (!ft_check_death(philo, 0))
 	{
 		pthread_create(&philo->thread_death_id, NULL, ft_is_dead, data);
 		ft_routine(philo);
 		pthread_detach(philo->thread_death_id);
-		if ((int)philo->num_eat++ == philo->pdata->times_must_eat)
+		if ((int)++philo->num_eat == philo->pdata->times_must_eat)
 		{
-			pthread_mutex_lock(&philo->pdata->mutex_end);
-			philo->end = 1;
-			philo->pdata->num_phil_finished++;
-			if (philo->pdata->num_phil_finished == philo->pdata->nb_of_philos)
-			{
-				pthread_mutex_unlock(&philo->pdata->mutex_end);
-				ft_check_death(philo, 2);
-				return (NULL);
-			}
-			pthread_mutex_unlock(&philo->pdata->mutex_dead);
+			mark_philosopher_as_finished(philo);
 		}
 	}
 	return (NULL);
 }
+/*
+	// Loop through the philosophers and create a thread for each
+	// Create a thread for the philosopher's routine
+	// Return an error code on failure
+*/
 
-int threading(t_philo *ph)
+int	ft_threading(t_philo *ph)
 {
-	int i;
-	i = 0;
+	int	i;
 
+	i = 0;
 	while (i < ph->data.nb_of_philos)
 	{
 		ph->philo[i].pdata = &ph->data;
-		if (pthread_create(&ph->philo[i].thread_id, NULL, ft_thread, &ph->philo[i]) != 0)
+		if (pthread_create(&ph->philo[i].thread_id, NULL, ft_thread, \
+			&ph->philo[i]) != 0)
 			(ft_error("Pthread did not return 0"));
 		i++;
 	}
@@ -109,93 +164,3 @@ int threading(t_philo *ph)
 }
 
 
-
-
-/*
-1-Sleep for even-numbered philosophers.
-2-Continue the loop until the philosopher has eaten the
-	 required number of times or has died.
-3- Execute the philosopher's routine
-4- Wait for the death-checking thread to finish.
-*/
-
-// void	*philosopher_behavior(void *data)
-// {
-// 	t_ph	*philo;
-
-// 	philo = (t_ph *)data;
-// 	if (philo->id % 2 == 0)
-// 		ft_usleep(philo->pdata->time_to_eat / 10);
-// 	philo->num_eat = 0;
-// 	while (philo->num_eat < philo->pdata->times_must_eat && /*\*/
-// 			!ft_check_death(philo, 0))
-// 	{
-// 		pthread_create(&philo->thread_death_id, NULL, ft_is_dead, data);
-// 		ft_routine(philo);
-// 		pthread_join(philo->thread_death_id, NULL);
-// 		philo->num_eat++;
-// 	}
-// 	return (NULL);
-// }
-
-/*
-1-- If the philosopher has eaten the required number of times, update the finish count.
-2-- If all philosophers have finished, check for death conditions.
-*/
-
-// void	*philosopher_finish(void *data)
-// {
-// 	t_ph	*philo;
-
-// 	philo = (t_ph *)data;
-// 	if (philo->num_eat == philo->pdata->times_must_eat)
-// 	{
-// 		pthread_mutex_lock(&philo->pdata->mutex_end);
-// 		philo->end = 1;
-// 		philo->pdata->num_phil_finished++;
-// 		if (philo->pdata->num_phil_finished == philo->pdata->nb_of_philos)
-// 		{
-// 			pthread_mutex_unlock(&philo->pdata->mutex_end);
-// 			ft_check_death(philo, 2);
-// 		}
-// 		else
-// 			pthread_mutex_unlock(&philo->pdata->mutex_end);
-// 	}
-// 	return (NULL);
-// }
-/*
-	1-- Create a thread for philosopher behavior
-	2-- Create a thread for checking if the philosopher has finished
-*/
-
-// int	threading(t_philo *ph)
-// {
-// 	int			i;
-// 	pthread_t	behavior_threads;
-// 	pthread_t	finish_threads;
-
-// 	// behavior_threads = NULL;
-// 	// finish_threads = NULL;
-
-// 	behavior_threads[ph->data.nb_of_philos];
-// 	finish_threads[ph->data.nb_of_philos];
-// 	i = 0;
-// 	while (i < ph->data.nb_of_philos)
-// 	{
-// 		ph->philo[i].pdata = &ph->data;
-// 		if (pthread_create(&behavior_threads[i], NULL, philosopher_behavior, /*\*/
-// 			&ph->philo[i]) != 0)
-// 			return (ft_error("Pthread did not return 0"));
-// 		if (pthread_create(&finish_threads[i], NULL, philosopher_finish, /*\*/
-// 			&ph->philo[i]) != 0)
-// 			return (ft_error("Pthread did not return 0"));
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (i++ < ph->data.nb_of_philos)
-// 	{
-// 		pthread_join(&behavior_threads[i], NULL);
-// 		pthread_join(&finish_threads[i], NULL);
-// 	}
-// 	return (1);
-// }

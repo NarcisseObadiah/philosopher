@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../PhilosophersFrench"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdio.h": "c",
+			"string.h": "c",
+			"pthread.h": "c"
+		}
+	}
+}

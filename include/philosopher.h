@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narcisse <narcisse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:00:13 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/09 11:40:46 by narcisse         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:49:30 by mobadiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdint.h>
-# include <stdbool.h>
+
 
 
 typedef struct s_data
@@ -70,12 +70,10 @@ int			ft_strlen(const char *s);
 int			ft_error(char *str);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putnbr_fd(long int ln, int fd);
-int			threading(t_philo *ph);
 
-/*Alternative threads functions*/
+/* threads functions*/
 
-void		*philosopher_finish(void *data);
-void		*philosopher_behavior(void *data);
-
+void		mark_philosopher_as_finished(t_ph *philo);
+int			ft_threading(t_philo *ph);
 
 #endif
