@@ -6,7 +6,7 @@
 /*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 15:00:13 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/10 16:49:30 by mobadiah         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:51:21 by mobadiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		ft_routine(t_ph	*philo);
 int			ft_strlen(const char *s);
 int			ft_error(char *str);
 void		ft_putstr_fd(char *s, int fd);
-void		ft_putnbr_fd(long int ln, int fd);
+void		ft_putnbr_fd(int n, int fd);
 
 /* threads functions*/
 

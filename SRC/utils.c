@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narcisse <narcisse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 06:32:07 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/09 11:37:36 by narcisse         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:22:23 by mobadiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ void	ft_usleep(long int time_in_ms)
 	starting_time = 0;
 	starting_time = time_now();
 	while ((time_now() - starting_time) < time_in_ms)
-	{
 		usleep(time_in_ms / 10);
-	}
 }
 
 int	ft_check_death(t_ph *philo, int i)
