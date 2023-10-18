@@ -12,7 +12,6 @@
 
 #include "../include/philosopher.h"
 
-
 int	ft_atoi(const char *str)
 {
 	int	i;

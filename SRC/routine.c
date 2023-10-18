@@ -6,7 +6,7 @@
 /*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:34:43 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/12 03:18:05 by mobadiah         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:11:08 by mobadiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	write_status(char *str, t_ph *philo)
 	time = -1;
 	time = time_now() - philo->pdata->starting_time;
 	if (time >= 0 && time <= MAX_LONG && !ft_check_death(philo, 0))
-		printf("%ld Philo %d %s", time, philo->id, str);
+		printf("%ld %d %s", time, philo->id, str);
 }
 
 void	ft_sleep(t_ph *philo)

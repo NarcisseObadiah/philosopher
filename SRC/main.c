@@ -6,7 +6,7 @@
 /*   By: mobadiah <mobadiah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:07:31 by mobadiah          #+#    #+#             */
-/*   Updated: 2023/10/12 03:45:35 by mobadiah         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:42:11 by mobadiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@
 
 int	last_death_checking(t_philo *ph)
 {
+	int	status;
+
 	pthread_mutex_lock(&ph->data.mutex_dead);
-	if (ph->data.status)
-	{
-		pthread_mutex_unlock(&ph->data.mutex_dead);
-		return (1);
-	}
+	status = ph->data.status;
 	pthread_mutex_unlock(&ph->data.mutex_dead);
-	return (0);
+	return (status);
 }
 
 void	ft_stop(t_philo *ph)
@@ -46,7 +44,6 @@ void	ft_stop(t_philo *ph)
 	free(ph->philo);
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_philo		ph;
@@ -63,4 +60,3 @@ int	main(int argc, char **argv)
 	}
 	ft_stop(&ph);
 }
-
